@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: spring-http-client
+  threads:
+    virtual:
+      enabled: true
+  http:
+    clients:
+      read-timeout: 10s
+      connect-timeout: 10s
+    serviceclient:
+      demo:
+        base-url: http://localhost:8080
+      sample:
+        base-url: http://localhost:8080
+        connect-timeout: 5s
+        read-timeout: 5s
+        apiversion:
+          default-version: 1.0.0
+          insert:
+            header: X-VERSION
+
+logging:
+  level:
+    '[org.springframework]': debug 
