@@ -5,8 +5,7 @@ Spring Boot 4 기반의 HTTP Client 샘플 프로젝트입니다. `spring-boot-s
 ## Features
 - HTTP Interface 기반 클라이언트: `SampleService`, `DemoService`
 - `@ImportHttpServices`로 그룹별 HTTP 서비스 등록 (`sample`, `demo`)
-- 기본 HTTP 에러 처리 커스터마이징: `HttpServiceConfig#restClientCustomizer()`
-- 요청/응답 로깅 인터셉터 등록: `HttpServiceConfig#loggingInterceptor()`
+- 기본 HTTP 에러 처리 및 로깅 인터셉터 커스터마이징 (`HttpServiceConfig`)
 - Virtual Threads 활성화(`application.yml`)
 - Resilience 애노테이션 예시
   - `OrchestrationService#retry()` → `@Retryable`
@@ -37,13 +36,14 @@ gradlew.bat bootRun
   - `spring.threads.virtual.enabled: true`
 
 ## Endpoints
-- GET `/sample/{id}`: API 엔드포인트 (id 반환)
-- POST `/demo?id=...`: API 엔드포인트 (id 반환)
+- GET `/sample/{id}`: API 엔드포인트 (id 반환, version=1.0.0)
+- POST `/demo?id=...`: API 엔드포인트 (id 반환, version=1.0.0)
 
 ## API 버저닝
 이 프로젝트는 Spring MVC API 버저닝을 사용합니다.
 - 지원 버전: 1.0.0, 1.1.0, 1.2.0
 - 입력 방식: `X-VERSION` 헤더, `version` 쿼리 파라미터, media-type 파라미터
+컨트롤러는 `version = "1.0.0"`으로 명시되어 있습니다.
 아웃바운드 클라이언트 버저닝:
 - sample 클라이언트: `X-VERSION` 헤더로 버전 삽입
 - demo 클라이언트: `version` 쿼리 파라미터로 버전 삽입
@@ -63,9 +63,17 @@ gradlew.bat bootRun
 
 ## Project Structure
 - `src/main/java/com/example/demo`
-  - `*Service.java`: HTTP Interface 및 오케스트레이션 서비스
-  - `HttpServiceConfig.java`: HTTP 서비스/RestClient 커스터마이징
+  - `SpringHttpClientApplication.java`: Spring Boot 시작점
+- `src/main/java/com/example/demo/api`
+  - `TestApiController.java`: 테스트용 API 엔드포인트 제공
+- `src/main/java/com/example/demo/httpclient`
+  - `SampleService.java`, `DemoService.java`: HTTP Interface 정의
+  - `OrchestrationService.java`: 호출 오케스트레이션 및 Resilience 적용
+  - `HttpServiceConfig.java`: RestClient 커스터마이징
+  - `MockService.java`, `MockServiceImpl.java`: 테스트/예제용 Mock 서비스
 - `src/test/java/com/example/demo`
+  - `SpringHttpClientApplicationTests.java`: 컨텍스트 로드 테스트
+- `src/test/java/com/example/demo/httpclient`
   - `OrchestrationServiceTest.java`: Retry/ConcurrencyLimit 통합 테스트
 
 ## Notes
