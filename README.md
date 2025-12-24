@@ -39,8 +39,6 @@ gradlew.bat bootRun
 ## Endpoints
 - GET `/sample/{id}`: API 엔드포인트 (id 반환)
 - POST `/demo?id=...`: API 엔드포인트 (id 반환)
-- GET `/http/sample/{id}`: HTTP Interface 기반 SampleService 호출
-- POST `/http/demo/{id}`: HTTP Interface 기반 DemoService 호출
 
 ## API 버저닝
 이 프로젝트는 Spring MVC API 버저닝을 사용합니다.
@@ -69,7 +67,6 @@ gradlew.bat bootRun
   - `HttpServiceConfig.java`: HTTP 서비스/RestClient 커스터마이징
 - `src/test/java/com/example/demo`
   - `OrchestrationServiceTest.java`: Retry/ConcurrencyLimit 통합 테스트
-  - `TestControllerConfig.java`: 테스트용 컨트롤러 제공
 
 ## Notes
 이 프로젝트의 `@ConcurrencyLimit`은 초과 호출을 거부하지 않고 대기(block)시키는 방식으로 동작합니다. 테스트에서는 가상 스레드로 동시 호출을 발생시켜 “동시 진입 최대치가 제한을 넘지 않는지”를 검증합니다.
