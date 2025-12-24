@@ -4,22 +4,49 @@ spring:
   threads:
     virtual:
       enabled: true
+  mvc:
+    # 인바운드 설정으로 버전추출/검증 + 핸들러 라우팅 설정 (서버 설정)
+    apiversion:
+#      default: 1.0.0    # 요청에 버전이 없을 경우 기본값
+      required: true   # 버전 필수 여부. true인데 버전이 없으면 400. 내부 MSA 통신에 유용
+      supported:        # 허용 버전 제한. 명시된 버전만 허용하고 나머지는 실패
+      - 1.0.0
+      - 1.1.0
+      - 1.2.0
+      detect-supported: false # 컨트롤러 기반 자동 설정. 컨트롤러를 스캔해서 자동으로 supported 목록 구성.
+      # 버전을 추룰하는 방법을 정의한 resolver 설정.
+      # 여러 방식을 정의할 수 있으며, 우선순위는 정의한 순서대로 적용.
+      # (주의) path-segment는 다른 resolver와 혼용할 수 없음. 정상적인 path를 잘못된 버저닝으로 오판할 수 있음.
+      use:
+        header: X-VERSION         # 해당 헤더 이름에서 버전 추춯
+#        path-segment: 1           # path에서 버전이 위치한 zero-based index (/api/v1/users : 1)
+        query-parameter: version  # 쿼리 파라미터 이름
+        media-type-parameter:     # 특정 media type 에 어떤 파라미터를 쓸 것인지 (Accept: application/json;version=1)
+          '[application/json]': version
+          '[application/vnd.myapp+json]': v
+          '[text/plain]': ver
   http:
     clients:
-      read-timeout: 10s
-      connect-timeout: 10s
+      read-timeout: 10s     # default read-timeout
+      connect-timeout: 10s  # default connect-timeout
     serviceclient:
       demo:
         base-url: http://localhost:8080
+        # 아웃바운드 설정으로 버전값을 요청에 삽입 (클라이언트 설정)
+        apiversion:
+          default: 1.0.0
+          insert:
+            query-parameter: version
       sample:
         base-url: http://localhost:8080
-        connect-timeout: 5s
-        read-timeout: 5s
+        connect-timeout: 5s # sample read-timeout
+        read-timeout: 5s    # sample connect-timeout
+        # 아웃바운드 설정으로 버전값을 요청에 삽입 (클라이언트 설정)
         apiversion:
-          default-version: 1.0.0
+          default: 1.0.0
           insert:
             header: X-VERSION
 
 logging:
   level:
-    '[org.springframework]': debug 
+    '[org.springframework]': debug

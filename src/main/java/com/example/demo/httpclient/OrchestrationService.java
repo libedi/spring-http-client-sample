@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.httpclient;
 
 import java.util.concurrent.TimeUnit;
 
