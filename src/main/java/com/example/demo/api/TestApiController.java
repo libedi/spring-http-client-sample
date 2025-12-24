@@ -14,7 +14,7 @@ public class TestApiController {
 		return id;
 	}
 
-	@PostMapping(value = "/demo", version = "1.0.0")
+	@PostMapping(value = "/demo")
 	public String postDemo(@RequestParam("id") final String id) {
 		return id;
 	}

@@ -34,7 +34,7 @@ spring:
         base-url: http://localhost:8080
         # 아웃바운드 설정으로 버전값을 요청에 삽입 (클라이언트 설정)
         apiversion:
-          default: 1.0.0
+          default: 1.2.0
           insert:
             query-parameter: version
       sample:
