@@ -40,13 +40,13 @@ gradlew.bat bootRun
 - POST `/demo?id=...`: API 엔드포인트 (id 반환, version=1.0.0)
 
 ## API 버저닝
-이 프로젝트는 Spring MVC API 버저닝을 사용합니다.
-- 지원 버전: 1.0.0, 1.1.0, 1.2.0
-- 입력 방식: `X-VERSION` 헤더, `version` 쿼리 파라미터, media-type 파라미터
-컨트롤러는 `version = "1.0.0"`으로 명시되어 있습니다.
-아웃바운드 클라이언트 버저닝:
-- sample 클라이언트: `X-VERSION` 헤더로 버전 삽입
-- demo 클라이언트: `version` 쿼리 파라미터로 버전 삽입
+- 이 프로젝트는 Spring MVC API 버저닝을 사용합니다.
+  - 지원 버전: 1.0.0, 1.1.0, 1.2.0
+  - 입력 방식: `X-VERSION` 헤더, `version` 쿼리 파라미터, media-type 파라미터
+- 컨트롤러는 `version = "1.0.0"`으로 명시되어 있습니다.
+- 아웃바운드 클라이언트 버저닝:
+  - sample 클라이언트: `X-VERSION` 헤더로 버전 삽입
+  - demo 클라이언트: `version` 쿼리 파라미터로 버전 삽입
 
 ## HTTP 클라이언트 설정
 - 기본 타임아웃: read/connect 10s
