@@ -14,11 +14,11 @@ spring:
       - 1.1.0
       - 1.2.0
       detect-supported: false # 컨트롤러 기반 자동 설정. 컨트롤러를 스캔해서 자동으로 supported 목록 구성.
-      # 버전을 추룰하는 방법을 정의한 resolver 설정.
+      # 버전을 추출하는 방법을 정의한 resolver 설정.
       # 여러 방식을 정의할 수 있으며, 우선순위는 정의한 순서대로 적용.
       # (주의) path-segment는 다른 resolver와 혼용할 수 없음. 정상적인 path를 잘못된 버저닝으로 오판할 수 있음.
       use:
-        header: X-VERSION         # 해당 헤더 이름에서 버전 추춯
+        header: X-VERSION         # 해당 헤더 이름에서 버전 추출
 #        path-segment: 1           # path에서 버전이 위치한 zero-based index (/api/v1/users : 1)
         query-parameter: version  # 쿼리 파라미터 이름
         media-type-parameter:     # 특정 media type 에 어떤 파라미터를 쓸 것인지 (Accept: application/json;version=1)
